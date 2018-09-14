@@ -1,0 +1,7 @@
+{
+	"wwwDir"           : "/var/www/xxx",
+	"browserConfig" : {
+		"proxy" : "localhost/xxx"
+	},
+	"release_dir"   : "./releases"
+}

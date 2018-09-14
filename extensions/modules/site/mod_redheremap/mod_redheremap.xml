@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+    <name>MOD_REDHEREMAP</name>
+    <version>1.0.0</version>
+    <creationDate>2018</creationDate>
+    <author>redCOMPONENT</author>
+    <authorEmail>email@redcomponent.com</authorEmail>
+    <authorUrl>www.redcomponent.com</authorUrl>
+    <copyright>Copyright (C) 2015 - 2018 redCOMPONENT.com. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later, see LICENSE.</license>
+    <description>MOD_REDHEREMAP_DESCRIPTION</description>
+    <files>
+        <folder>language</folder>
+        <folder>tmpl</folder>
+        <filename module="mod_redheremap">mod_redheremap.php</filename>
+        <filename>mod_redheremap.xml</filename>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="api" type="text" label="MOD_REDHEREMAP_APP_API" description="MOD_REDHEREMAP_APP_API_DESC" />
+                <field name="code" type="text" label="MOD_REDHEREMAP_APP_CODE" description="MOD_REDHEREMAP_APP_CODE_DESC" />
+                <field name="lat" type="text" default="" label="MOD_REDHEREMAP_LATTITUDE" description="MOD_REDHEREMAP_LATTITUDE_DESC" />
+                <field name="lng" type="text" default="" label="MOD_REDHEREMAP_LONGTITUDE" description="MOD_REDHEREMAP_LONGTITUDE_DESC" />
+                <field name="height" type="text" default="300" label="MOD_REDHEREMAP_HEIGHT" description="MOD_REDHEREMAP_HEIGHT_DESC" />
+                <field name="type" type="list" default="ROADMAP" label="MOD_REDHEREMAP_MAP_TYPE" description="MOD_REDHEREMAP_MAP_TYPE_DESC">
+                    <option value="MOD_REDHEREMAP_ROADMAP">ROADMAP</option>
+                    <option value="MOD_REDHEREMAP_SATELLITE">SATELLITE</option>
+                    <option value="MOD_REDHEREMAP_HYBRID">HYBRID</option>
+                    <option value="MOD_REDHEREMAP_TERRAIN">TERRAIN</option>
+                </field>
+                <field name="zoom" type="text" default="18" label="MOD_REDHEREMAP_ZOOM" description="MOD_REDHEREMAP_ZOOM_DESC" />
+            </fieldset>
+            <fieldset name="advanced">
+                <field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+                <field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" rows="3" />
+                <field name="cache" type="list" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC" default="1" filter="integer">
+                    <option value="1">JGLOBAL_USE_GLOBAL</option>
+                    <option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+                </field>
+                <field name="cache_time" type="number" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" default="900" filter="integer" />
+                <field name="cachemode" type="hidden" default="static">
+                    <option value="static"></option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>
