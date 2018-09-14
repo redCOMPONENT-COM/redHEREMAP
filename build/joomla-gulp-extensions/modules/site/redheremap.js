@@ -8,6 +8,9 @@ var browserSync = require('browser-sync');
 var concat      = require('gulp-concat');
 var del         = require('del');
 var gutil       = require('gulp-util');
+var sass        = require('gulp-sass');
+var uglify      = require('gulp-uglify');
+var rename      = require('gulp-rename');
 
 var modName   = "redheremap";
 var modFolder = "mod_" + modName;
@@ -17,6 +20,12 @@ var baseTask  = 'modules.frontend.' + modName;
 var extPath   = '../extensions/modules/' + modBase + '/' + modFolder;
 
 var wwwPath = config.wwwDir + '/modules/' + modFolder;
+
+var path = {
+  JS: '../src/*.js',
+  MINIFIED_OUT: 'redheremap.js',
+  DEST_BUILD: extPath + '/assets',
+};
 
 // Clean
 gulp.task('clean:' + baseTask,
@@ -35,6 +44,7 @@ gulp.task('clean:' + baseTask + ':module', function() {
 gulp.task('copy:' + baseTask,
     [
         'clean:' + baseTask,
+        "copy:" + baseTask + ":compress",
         'copy:' + baseTask + ':module'
     ]
 );
@@ -53,6 +63,13 @@ gulp.task('copy:' + baseTask + ':media', ['clean:' + baseTask + ':media'], funct
         mediaPath + '/**'
     ])
         .pipe(gulp.dest(wwwMediaPath));
+});
+
+gulp.task('copy:' + baseTask + ':compress', function () {
+    gulp.src(path.JS)
+    .pipe(concat(path.MINIFIED_OUT))
+    //.pipe(uglify(path.MINIFIED_OUT))
+    .pipe(gulp.dest(path.DEST_BUILD));
 });
 
 // Watch

@@ -12,3 +12,7 @@ defined('_JEXEC') or die;
 <div class="mod_redheremap<?php echo $moduleclass_sfx ?>" id="mod_redheremap<?php echo $module->id ?>">
 	Hello redWEB !
 </div>
+
+<div id="mapContainer" style="width: 500px; height: 500px"></div>
+
+<script type="text/javascript" src='modules/mod_redheremap/assets/redheremap.js'></script>

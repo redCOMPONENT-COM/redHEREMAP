@@ -10,6 +10,8 @@
     <license>GNU General Public License version 2 or later, see LICENSE.</license>
     <description>MOD_REDHEREMAP_DESCRIPTION</description>
     <files>
+        <folder>assets</folder>
+        <folder>fields</folder>
         <folder>language</folder>
         <folder>tmpl</folder>
         <filename module="mod_redheremap">mod_redheremap.php</filename>
@@ -17,19 +19,54 @@
     </files>
     <config>
         <fields name="params">
-            <fieldset name="basic">
+            <fieldset name="basic" addfieldpath="/modules/mod_redheremap/fields">
                 <field name="api" type="text" label="MOD_REDHEREMAP_APP_API" description="MOD_REDHEREMAP_APP_API_DESC" />
                 <field name="code" type="text" label="MOD_REDHEREMAP_APP_CODE" description="MOD_REDHEREMAP_APP_CODE_DESC" />
+                <field name="address" type="text" default="" label="MOD_REDHEREMAP_ADDRESS" description="MOD_REDHEREMAP_ADDRESS_DESC" />
                 <field name="lat" type="text" default="" label="MOD_REDHEREMAP_LATTITUDE" description="MOD_REDHEREMAP_LATTITUDE_DESC" />
                 <field name="lng" type="text" default="" label="MOD_REDHEREMAP_LONGTITUDE" description="MOD_REDHEREMAP_LONGTITUDE_DESC" />
-                <field name="height" type="text" default="300" label="MOD_REDHEREMAP_HEIGHT" description="MOD_REDHEREMAP_HEIGHT_DESC" />
-                <field name="type" type="list" default="ROADMAP" label="MOD_REDHEREMAP_MAP_TYPE" description="MOD_REDHEREMAP_MAP_TYPE_DESC">
-                    <option value="MOD_REDHEREMAP_ROADMAP">ROADMAP</option>
-                    <option value="MOD_REDHEREMAP_SATELLITE">SATELLITE</option>
-                    <option value="MOD_REDHEREMAP_HYBRID">HYBRID</option>
-                    <option value="MOD_REDHEREMAP_TERRAIN">TERRAIN</option>
-                </field>
                 <field name="zoom" type="text" default="18" label="MOD_REDHEREMAP_ZOOM" description="MOD_REDHEREMAP_ZOOM_DESC" />
+                <field name="scheme" type="list" default="" label="schemes" description="">
+                    <option value="normal.day">normal.day</option>
+                    <option value="normal.day.grey">normal.day.grey</option>
+                    <option value="normal.day.transit">normal.day.transit</option>
+                    <option value="normal.day.custom">normal.day.custom</option>
+                    <option value="normal.night">normal.night</option>
+                    <option value="normal.night.grey">normal.night.grey</option>
+                    <option value="pedestrian.day">pedestrian.day</option>
+                    <option value="pedestrian.day.mobile">pedestrian.day.mobile</option>
+                    <option value="pedestrian.night">pedestrian.night</option>
+                    <option value="pedestrian.night.mobile">pedestrian.night.mobile</option>
+                    <option value="carnav.day.grey">carnav.day.grey</option>
+                    <option value="normal.day.mobile">normal.day.mobile</option>
+                    <option value="normal.day.grey.mobile">normal.day.grey.mobile</option>
+                    <option value="normal.day.transit.mobile">normal.day.transit.mobile</option>
+                    <option value="normal.night.mobile">normal.night.mobile</option>
+                    <option value="normal.night.grey.mobile">normal.night.grey.mobile</option>
+                    <option value="reduced.day">reduced.day</option>
+                    <option value="reduced.night">reduced.night</option>
+                    <option value="normal.traffic.day">normal.traffic.day</option>
+                    <option value="normal.traffic.night">normal.traffic.night</option>
+                    <option value="normal.night.transit">normal.night.transit</option>
+                    <option value="normal.night.transit.mobile">normal.night.transit.mobile</option>
+                </field>
+                <field name="tiletype" type="list" default="" label="tiletypes" description="">
+                    <option value="maptile">maptile</option>
+                    <option value="basetile">basetile</option>
+                    <option value="xbasetile">xbasetile</option>
+                    <option value="alabeltile">alabeltile</option>
+                    <option value="labeltile">labeltile</option>
+                    <option value="linetile">linetile</option>
+                    <option value="streettile">streettile</option>
+                    <option value="lltile">lltile</option>
+                    <option value="trucktile">trucktile</option>
+                    <option value="truckonlytile">truckonlytile</option>
+                    <option value="blinetile">blinetile</option>
+                    <option value="mapnopttile">mapnopttile</option>
+                    <option value="trucknopttile">trucknopttile</option>
+                </field>
+                <field name="height" type="text" default="300" label="MOD_REDHEREMAP_HEIGHT" description="MOD_REDHEREMAP_HEIGHT_DESC" />
+                <field name="map" type="heremap" label="MOD_REDHEREMAP_MAP" description="MOD_REDHEREMAP_MAP" />
             </fieldset>
             <fieldset name="advanced">
                 <field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
