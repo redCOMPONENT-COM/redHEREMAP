@@ -18,10 +18,9 @@ class JFormFieldHeremap extends JFormField {
 		$document->addScript('http://js.api.here.com/v3/3.0/mapsjs-service.js');
 		$document->addScript('http://js.api.here.com/v3/3.0/mapsjs-ui.js');
 		$document->addScript('http://js.api.here.com/v3/3.0/mapsjs-mapevents.js');
+		$document->addScript(JUri::root() . 'modules/mod_redheremap/assets/redheremap.js');
 		$document->addStyleSheet('https://js.api.here.com/v3/3.0/mapsjs-ui.css');
 		$document->addStyleSheet(JUri::root() . 'modules/mod_redheremap/assets/app.css');
-
-		$appJs = JUri::root() . 'modules/mod_redheremap/assets/redheremap.js';
 
 		$appId = $this->form->getValue('api', 'params');
 		$appCode = $this->form->getValue('code', 'params');
@@ -67,7 +66,6 @@ class JFormFieldHeremap extends JFormField {
 			});
 		";
 
-		return '<div id="mapContainer" style="width: 500px; height: 500px"></div>
-		       <script type="text/javascript" src="' . $appJs . '"></script><script>' . $js . '</script>';
+		return '<div id="mapContainer" style="width: 500px; height: 500px"></div><script>' . $js . '</script>';
 	}
 }

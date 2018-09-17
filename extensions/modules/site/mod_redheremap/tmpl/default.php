@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 ?>
 <div class="mod_redheremap<?php echo $moduleclass_sfx ?>" style="width: <?php echo $width?>; height: <?php echo $height?>" id="mod_redheremap<?php echo $module->id ?>">
 </div>
-<script type="text/javascript" src='modules/mod_redheremap/assets/redheremap.js'></script>
+
 <script type="text/javascript">
 	var mod_redheremap<?php echo $module->id ?> = new redHEREMAP('mod_redheremap<?php echo $module->id ?>', {
 		appId: '<?php echo $appId ?>',

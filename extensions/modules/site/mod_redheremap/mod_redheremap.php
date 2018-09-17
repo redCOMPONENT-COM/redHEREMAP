@@ -35,6 +35,7 @@ $document->addScript('http://js.api.here.com/v3/3.0/mapsjs-core.js');
 $document->addScript('http://js.api.here.com/v3/3.0/mapsjs-service.js');
 $document->addScript('http://js.api.here.com/v3/3.0/mapsjs-ui.js');
 $document->addScript('http://js.api.here.com/v3/3.0/mapsjs-mapevents.js');
+$document->addScript(JUri::root() . 'modules/mod_redheremap/assets/redheremap.js');
 $document->addStyleSheet('https://js.api.here.com/v3/3.0/mapsjs-ui.css');
 
 require JModuleHelper::getLayoutPath('mod_redheremap', $params->get('layout', 'default'));
