@@ -1,0 +1,47 @@
+.autocomplete- {
+    &suggestions {
+        border: 1px solid #999;
+        background: #FFF;
+        overflow: auto;
+
+        strong {
+            font-weight: normal;
+            color: #3399FF;
+        }
+    }
+
+    &suggestion {
+        padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    &selected {
+        background: #F0F0F0;
+    }
+
+    &group {
+        padding: 2px 5px;
+
+        strong {
+            display: block;
+            border-bottom: 1px solid #000;
+        }
+    }
+}
+
+#myTabContent .span9
+{
+    position: relative;
+    .control-group:last-child
+    {
+        position: absolute;
+        right: 0;
+        top: 15%;
+
+        .control-label
+        {
+            display: none;
+        }
+    }
+}

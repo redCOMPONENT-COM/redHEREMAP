@@ -22,7 +22,8 @@ var extPath   = '../extensions/modules/' + modBase + '/' + modFolder;
 var wwwPath = config.wwwDir + '/modules/' + modFolder;
 
 var path = {
-  JS: '../src/*.js',
+  JS: '../src/js/*.js',
+  SCSS: '../src/scss/*.scss',
   MINIFIED_OUT: 'redheremap.js',
   DEST_BUILD: extPath + '/assets',
 };
@@ -44,7 +45,8 @@ gulp.task('clean:' + baseTask + ':module', function() {
 gulp.task('copy:' + baseTask,
     [
         'clean:' + baseTask,
-        "copy:" + baseTask + ":compress",
+        'copy:' + baseTask + ':compress',
+        'copy:' + baseTask + ':scss',
         'copy:' + baseTask + ':module'
     ]
 );
@@ -68,8 +70,14 @@ gulp.task('copy:' + baseTask + ':media', ['clean:' + baseTask + ':media'], funct
 gulp.task('copy:' + baseTask + ':compress', function () {
     gulp.src(path.JS)
     .pipe(concat(path.MINIFIED_OUT))
-    //.pipe(uglify(path.MINIFIED_OUT))
+    .pipe(uglify(path.MINIFIED_OUT))
     .pipe(gulp.dest(path.DEST_BUILD));
+});
+
+gulp.task('copy:' + baseTask + ':scss', function () {
+    return gulp.src(path.SCSS)
+        .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+        .pipe(gulp.dest(path.DEST_BUILD));
 });
 
 // Watch

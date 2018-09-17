@@ -1,44 +1,45 @@
 function redHEREMAP(element, settings) {
-    this.element = element;
-    this.settings = settings;
+    var query = '';
+    var marker;
+    var pngIcon;
 
-    let AUTOCOMPLETION_URL = 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json'
-    let marker;
-
-    if (this.settings.appId == '') {
+    if (settings.appId == '' || settings.appCode == '') {
         return;
     }
 
-    let platform = new H.service.Platform({
-        'app_id': this.settings.appId,
-        'app_code': this.settings.appCode,
+    var platform = new H.service.Platform({
+        'app_id': settings.appId,
+        'app_code': settings.appCode,
         useCIT: true,
         useHTTPS: true
     });
 
-    let defaultLayers = platform.createDefaultLayers();
+    var defaultLayers = platform.createDefaultLayers();
 
     // initialize a map - this map is centered over Europe
-    let map = new H.Map(document.getElementById(this.element),
+    var map = new H.Map(document.getElementById(element),
         defaultLayers.normal.map, {
             center: {
-                lat: 10.759181285277815,
-                lng: 106.68793446053326
+                lat: 10.75916,
+                lng: 106.68789
             },
-            zoom: this.settings.zoomLevel
+            zoom: settings.zoomLevel
         });
 
     // Enable the event system on the map instance:
-    let mapEvents = new H.mapevents.MapEvents(map);
-    let group = new H.map.Group();
+    var mapEvents = new H.mapevents.MapEvents(map);
+    var group = new H.map.Group();
 
     // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
-    let behavior = new H.mapevents.Behavior(mapEvents);
-    //behavior.disable(H.mapevents.Behavior.WHEELZOOM);
+    var behavior = new H.mapevents.Behavior(mapEvents);
+
+    if (settings.disablemousewheel == 1) {
+        behavior.disable(H.mapevents.Behavior.WHEELZOOM);
+    }
 
     // create default UI with layers provided by the platform
-    let ui = H.ui.UI.createDefault(map, defaultLayers);
+    var ui = H.ui.UI.createDefault(map, defaultLayers);
 
     /**
      * Creates a new marker and adds it to a group
@@ -48,6 +49,12 @@ function redHEREMAP(element, settings) {
      */
     this.addMarkerToGroup = function(coordinate, html) {
         marker = new H.map.Marker(coordinate);
+
+        if (settings.icon != '') {
+            marker.setIcon(new H.map.Icon(settings.icon));
+        }
+
+
         // add custom data to the marker
         marker.setData(html);
         group.addObject(marker);
@@ -67,7 +74,7 @@ function redHEREMAP(element, settings) {
         group.addEventListener('tap', function(evt) {
             // event target is the marker itself, group is a parent event target
             // for all objects that it contains
-            let bubble = new H.ui.InfoBubble(evt.target.getPosition(), {
+            var bubble = new H.ui.InfoBubble(evt.target.getPosition(), {
                 // read custom data
                 content: evt.target.getData()
             });
@@ -75,22 +82,17 @@ function redHEREMAP(element, settings) {
             ui.addBubble(bubble);
         }, false);
 
-        this.addMarkerToGroup({ lat: this.settings.lat, lng: this.settings.lng },
-            '<div><a href=\'http://www.mcfc.co.uk\' >Manchester City</a>' +
-            '</div><div >City of Manchester Stadium<br>Capacity: 48,000</div>');
+        this.addMarkerToGroup({ lat: settings.lat, lng: settings.lng }, settings.info);
     }
 
-    this.setBaseLayer = function() {
-        let scheme = jQuery('#jform_params_scheme').val();
-        let tile = jQuery('#jform_params_tiletype').val();
-
+    this.setBaseLayer = function(tile, scheme) {
         // Create a MapTileService instance to request base tiles (i.e. 
         // base.map.api.here.com):
-        let mapTileService = platform.getMapTileService({ 'type': 'base' });
+        var mapTileService = platform.getMapTileService({ 'type': 'base' });
 
         // Create a tile layer which requests map tiles with an additional 'style'
         // URL parameter set to 'fleet':
-        let fleetStyleLayer = mapTileService.createTileLayer(
+        var fleetStyleLayer = mapTileService.createTileLayer(
             tile,
             scheme,
             256,
@@ -104,6 +106,62 @@ function redHEREMAP(element, settings) {
     this.setZoom = function(zoomLevel) {
         map.setZoom(zoomLevel);
     }
+
+    jQuery('#jform_params_address').autocomplete({
+        lookup: function(text, done) {
+
+            var url = 'https://geocoder.api.here.com/6.2/geocode.json';
+
+            /**
+             * A full list of available request parameters can be found in the Geocoder Autocompletion
+             * API documentation.
+             *
+             */
+            var params = '?' +
+                'searchtext=' + encodeURIComponent(text) + // The search text which is the basis of the query
+                '&gen=9' +
+                '&app_id=' + settings.appId +
+                '&app_code=' + settings.appCode;
+
+            jQuery.ajax({
+                url: url + params,
+                dataType: 'json'
+            }).done(function(data) {
+
+                if (data.Response.View[0] == undefined) {
+                    return;
+                }
+
+                var locations = data.Response.View[0].Result;
+
+                var options = [];
+
+                jQuery.each(locations, function(index, val) {
+                    var coord = {};
+                    coord.lat = val.Location.DisplayPosition.Latitude;
+                    coord.lng = val.Location.DisplayPosition.Longitude;
+
+                    options.push({ "value": val.Location.Address.Label, "data": JSON.stringify(coord) })
+                });
+
+                var result = {
+                    suggestions: options
+                };
+
+                done(result);
+            });
+        },
+        onSelect: function(suggestion) {
+            var coord = JSON.parse(suggestion.data);
+
+            jQuery('#jform_params_lat').val(coord.lat);
+            jQuery('#jform_params_lng').val(coord.lng);
+
+            geocode(coord.lat, coord.lng);
+            marker.setPosition(coord);
+            map.setCenter(coord);
+        }
+    });
 
     /**
      * Calculates and displays the address details of the location found at
@@ -145,9 +203,9 @@ function redHEREMAP(element, settings) {
         for (i = 0; i < locations.length; i += 1) {
             var address = locations[i].location.address.label;
 
-             jQuery('#jform_params_address').val(address);
+            jQuery('#jform_params_address').val(address);
 
-             break;
+            break;
         }
 
     }
@@ -160,23 +218,26 @@ function redHEREMAP(element, settings) {
         alert('Ooops!');
     }
 
-
     // Add event listener:
     map.addEventListener('tap', function(evt) {
-        // Log 'tap' and 'mouse' events:
-        let coord = map.screenToGeo(evt.currentPointer.viewportX, evt.currentPointer.viewportY);
 
-        jQuery('#jform_params_lat').val(coord.lat);
-        jQuery('#jform_params_lng').val(coord.lng);
+        if (settings.site == 0) {
+            // Log 'tap' and 'mouse' events:
+            var coord = map.screenToGeo(evt.currentPointer.viewportX, evt.currentPointer.viewportY);
 
-        geocode(coord.lat, coord.lng);
-        marker.setPosition(coord);
+            jQuery('#jform_params_lat').val(coord.lat);
+            jQuery('#jform_params_lng').val(coord.lng);
+
+            geocode(coord.lat, coord.lng);
+            marker.setPosition(coord);
+        }
     });
 
-
-    if (this.settings.lng != "" && this.settings.lat != "") {
+    if (settings.lng != "" && settings.lat != "") {
         this.addInfoBubble(map);
     }
 
-    this.setBaseLayer();
+    if (settings.tiletype != "" && settings.scheme != "") {
+        this.setBaseLayer(settings.tiletype, settings.scheme);
+    }
 }

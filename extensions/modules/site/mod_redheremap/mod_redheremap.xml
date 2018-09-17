@@ -25,8 +25,16 @@
                 <field name="address" type="text" default="" label="MOD_REDHEREMAP_ADDRESS" description="MOD_REDHEREMAP_ADDRESS_DESC" />
                 <field name="lat" type="text" default="" label="MOD_REDHEREMAP_LATTITUDE" description="MOD_REDHEREMAP_LATTITUDE_DESC" />
                 <field name="lng" type="text" default="" label="MOD_REDHEREMAP_LONGTITUDE" description="MOD_REDHEREMAP_LONGTITUDE_DESC" />
-                <field name="zoom" type="text" default="18" label="MOD_REDHEREMAP_ZOOM" description="MOD_REDHEREMAP_ZOOM_DESC" />
-                <field name="scheme" type="list" default="" label="schemes" description="">
+                <field name="zoom" type="number" default="18" min="0" max="20" step="1" label="MOD_REDHEREMAP_ZOOM" description="MOD_REDHEREMAP_ZOOM_DESC" />
+                <field name="height" type="text" default="300" label="MOD_REDHEREMAP_HEIGHT" description="MOD_REDHEREMAP_HEIGHT_DESC" />
+                <field name="width" type="text" default="300" label="MOD_REDHEREMAP_WIDTH" description="MOD_REDHEREMAP_WIDTH_DESC" />
+                <field name="disablemousewheel" type="radio" default="0" label="MOD_REDHEREMAP_DISABLE_MOUSEWHEEL" description="MOD_REDHEREMAP_DISABLE_MOUSEWHEEL_DESC" class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="icon" type="media" label="MOD_REDHEREMAP_ICON" description="MOD_REDHEREMAP_ICON_DESC"/>
+                <field name="info" type="textarea" default="" label="MOD_REDHEREMAP_INFO" description="MOD_REDHEREMAP_INFO_DESC" rows="10" cols="5" filter="raw"/>
+                <field name="scheme" type="list" default="" label="MOD_REDHEREMAP_SCHEME" description="">
                     <option value="normal.day">normal.day</option>
                     <option value="normal.day.grey">normal.day.grey</option>
                     <option value="normal.day.transit">normal.day.transit</option>
@@ -50,7 +58,7 @@
                     <option value="normal.night.transit">normal.night.transit</option>
                     <option value="normal.night.transit.mobile">normal.night.transit.mobile</option>
                 </field>
-                <field name="tiletype" type="list" default="" label="tiletypes" description="">
+                <field name="tiletype" class="bbbb" type="list" default="" label="MOD_REDHEREMAP_TILETYPES" description="">
                     <option value="maptile">maptile</option>
                     <option value="basetile">basetile</option>
                     <option value="xbasetile">xbasetile</option>
@@ -65,8 +73,7 @@
                     <option value="mapnopttile">mapnopttile</option>
                     <option value="trucknopttile">trucknopttile</option>
                 </field>
-                <field name="height" type="text" default="300" label="MOD_REDHEREMAP_HEIGHT" description="MOD_REDHEREMAP_HEIGHT_DESC" />
-                <field name="map" type="heremap" label="MOD_REDHEREMAP_MAP" description="MOD_REDHEREMAP_MAP" />
+                <field name="map" class="testclass" rel="testestrel" labelclass="test" type="heremap" label="MOD_REDHEREMAP_MAP" description="MOD_REDHEREMAP_MAP" />
             </fieldset>
             <fieldset name="advanced">
                 <field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />

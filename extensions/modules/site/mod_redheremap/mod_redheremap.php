@@ -9,22 +9,24 @@
 
 defined('_JEXEC') or die;
 
-require_once 'helper.php';
-
 $moduleclass_sfx     = htmlspecialchars($params->get('moduleclass_sfx'));
-$app = JFactory::getApplication();
+$appId = $params->get('api', '');
+$appCode = $params->get('code', '');
+$zoom = $params->get('zoom', '14');
+$lat = $params->get('lat', '');
+$lng = $params->get('lng', '');
+$height = $params->get('height', '300');
+$width = $params->get('width', '300');
+$tiletype = $params->get('tiletype', 'normal.day');
+$scheme = $params->get('scheme', 'maptile');
+$disablemousewheel = $params->get('disablemousewheel', '0');
+$info = $params->get('info', '');
+$icon = $params->get('icon', '');
 
-// Prepare for cache
-$cacheid = md5(serialize(array($module->id, $module->module)));
-
-$cacheparams = new stdClass;
-$cacheparams->cachemode    = 'id';
-$cacheparams->class        = 'ModRedheremapHelper';
-$cacheparams->method       = 'getContent';
-$cacheparams->methodparams = $params;
-$cacheparams->modeparams   = $cacheid;
-
-$moduleContent = JModuleHelper::moduleCache($module, $params, $cacheparams);
+if (!empty($icon))
+{
+	$icon = JUri::root() . $icon;
+}
 
 $document = JFactory::getDocument();
 $document->addScript('http://js.api.here.com/v3/3.0/mapsjs-core.js');

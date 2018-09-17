@@ -9,10 +9,21 @@
 
 defined('_JEXEC') or die;
 ?>
-<div class="mod_redheremap<?php echo $moduleclass_sfx ?>" id="mod_redheremap<?php echo $module->id ?>">
-	Hello redWEB !
+<div class="mod_redheremap<?php echo $moduleclass_sfx ?>" style="width: <?php echo $width?>px; height: <?php echo $height?>px" id="mod_redheremap<?php echo $module->id ?>">
 </div>
-
-<div id="mapContainer" style="width: 500px; height: 500px"></div>
-
 <script type="text/javascript" src='modules/mod_redheremap/assets/redheremap.js'></script>
+<script type="text/javascript">
+	var mymap = new redHEREMAP('mod_redheremap<?php echo $module->id ?>', {
+		appId: '<?php echo $appId ?>',
+		appCode: '<?php echo $appCode ?>',
+		site: 1,
+		zoomLevel: '<?php echo$zoom ?>',
+		lat: '<?php echo $lat ?>',
+		lng: '<?php echo $lng ?>',
+		tiletype: '<?php echo $tiletype ?>',
+		scheme: '<?php echo $scheme ?>',
+		disablemousewheel: '<?php echo $disablemousewheel ?>',
+		info: '<?php echo $info ?>',
+		icon: '<?php echo $icon ?>'
+	});
+</script>
