@@ -31,6 +31,7 @@ class JFormFieldHeremap extends JFormField {
 		$tiletype = $this->form->getValue('tiletype', 'params');
 		$scheme = $this->form->getValue('scheme', 'params');
 		$info = $this->form->getValue('info', 'params');
+		$info = trim(preg_replace('/\s+/', ' ', $info));
 		$icon = $this->form->getValue('icon', 'params');
 
 		if (!empty($icon))
@@ -63,10 +64,6 @@ class JFormFieldHeremap extends JFormField {
 
 			jQuery('#jform_params_tiletype').change(function() {
 			   mymap.setBaseLayer(jQuery('#jform_params_tiletype').val(), jQuery('#jform_params_scheme').val());
-			});
-
-			jQuery('#jform_params_address').keyup(function() {
-			   //mymap.autoCompleteListener(this);
 			});
 		";
 

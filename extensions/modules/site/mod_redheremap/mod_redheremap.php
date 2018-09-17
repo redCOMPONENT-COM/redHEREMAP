@@ -21,6 +21,8 @@ $tiletype = $params->get('tiletype', 'normal.day');
 $scheme = $params->get('scheme', 'maptile');
 $disablemousewheel = $params->get('disablemousewheel', '0');
 $info = $params->get('info', '');
+$info = trim(preg_replace('/\s+/', ' ', $info));
+
 $icon = $params->get('icon', '');
 
 if (!empty($icon))
