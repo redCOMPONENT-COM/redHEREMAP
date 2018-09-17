@@ -23,11 +23,11 @@
                 <field name="api" type="text" label="MOD_REDHEREMAP_APP_API" description="MOD_REDHEREMAP_APP_API_DESC" required="true" />
                 <field name="code" type="text" label="MOD_REDHEREMAP_APP_CODE" description="MOD_REDHEREMAP_APP_CODE_DESC" required="true" />
                 <field name="noteapi" type="note" label="MOD_REDHEREMAP_APP_CODE_NOTE" />
-                <field name="address" type="text" default="" label="MOD_REDHEREMAP_ADDRESS" description="MOD_REDHEREMAP_ADDRESS_DESC" required="true" />
-                <field name="lat" type="text" default="" label="MOD_REDHEREMAP_LATTITUDE" description="MOD_REDHEREMAP_LATTITUDE_DESC" required="true" />
-                <field name="lng" type="text" default="" label="MOD_REDHEREMAP_LONGTITUDE" description="MOD_REDHEREMAP_LONGTITUDE_DESC" required="true" />
+                <field name="address" type="text" default="" label="MOD_REDHEREMAP_ADDRESS" description="MOD_REDHEREMAP_ADDRESS_DESC" />
+                <field name="lat" type="text" default="" label="MOD_REDHEREMAP_LATTITUDE" description="MOD_REDHEREMAP_LATTITUDE_DESC" />
+                <field name="lng" type="text" default="" label="MOD_REDHEREMAP_LONGTITUDE" description="MOD_REDHEREMAP_LONGTITUDE_DESC" />
                 <field name="zoom" type="number" default="18" min="0" max="20" step="1" label="MOD_REDHEREMAP_ZOOM" description="MOD_REDHEREMAP_ZOOM_DESC" />
-                <field name="width" type="text" default="300px" label="MOD_REDHEREMAP_WIDTH" description="MOD_REDHEREMAP_WIDTH_DESC" />
+                <field name="width" type="text" default="100%" label="MOD_REDHEREMAP_WIDTH" description="MOD_REDHEREMAP_WIDTH_DESC" />
                 <field name="height" type="text" default="300px" label="MOD_REDHEREMAP_HEIGHT" description="MOD_REDHEREMAP_HEIGHT_DESC" />
                 <field name="scheme" type="list" default="" label="MOD_REDHEREMAP_SCHEME" description="">
                     <option value="normal.day">normal.day</option>
